@@ -8,13 +8,15 @@ namespace ETicaretAPI.API.Controllers
     [ApiController]
     public class ProductsController : ControllerBase //presentation layerında---> product için controller yapısı 
     {
-        private readonly IProductService productService; //Iproductservice yaratımı
+        private readonly IProductService productService; //productservice yaratımı
 
         public ProductsController(IProductService productService) // constructerda eşleme
         {
             this.productService = productService;
         }
-        public IActionResult GetProducts() // bütün producları döndüren method
+        
+        [HttpGet]
+        public IActionResult GetProducts() // bütün productları döndüren method
         {
             var products = productService.GetProducts();
             return Ok(products);
