@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace ETicaretAPI.Application.Abstractions
 {
-    public interface IProductService
+    public interface IProductService //interface olarak ProductService sınıfı
     {
-        List<Product> GetProducts();
+        List<Product> GetProducts(); //generic tipi product olan bir liste döndüren method interface
 
     }
 }

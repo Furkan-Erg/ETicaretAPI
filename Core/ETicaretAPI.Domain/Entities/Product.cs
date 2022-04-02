@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ETicaretAPI.Domain.Entities
 {
-    public class Product : BaseEntity
+    public class Product : BaseEntity //Product isimli class base entityden inherit ediliyo
     {
-        public string Name { get; set; }
-       
-        public long Price { get; set; }
-        public int Stock { get; set; }
+        public string Name { get; set; } //product ın name propertysi
+
+        public long Price { get; set; } //product ın price propertysi
+        public int Stock { get; set; } //product ın stock propertysi
     }
 }
