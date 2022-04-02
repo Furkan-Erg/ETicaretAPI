@@ -1,5 +1,9 @@
+using ETicaretAPI.Persistence;
+
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.Services.AddPersistenceServices(); //persistanceservices methodunu builderda kullanmak için invoke etme iþlemi
 // Add services to the container.
 
 builder.Services.AddControllers();
