@@ -13,5 +13,7 @@ namespace ETicaretAPI.Domain.Entities
 
         public long Price { get; set; } //product ın price propertysi
         public int Stock { get; set; } //product ın stock propertysi
+
+        public ICollection<Order> Orders { get; set; } //bir product birden fazla order da bulunabilir bu yüzden ICollection ile mantıksal yapı kurulur.
     }
 }

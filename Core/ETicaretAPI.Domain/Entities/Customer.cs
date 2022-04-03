@@ -1,21 +1,15 @@
 ﻿using ETicaretAPI.Domain.Entities.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ETicaretAPI.Domain.Entities
 {
-    public class Customer : BaseEntity
+    public class Customer : BaseEntity //class base entityden inherit ediliyo
     {
-        string Name { get; set; }
-        string Surname { get; set; }
-        string UserName { get; set; }
-        string Email { get; set; }
-        string Password { get; set; }
-        string Phone { get; set; }
-        string Address { get; set; }
-        
+        public ICollection<Order> Orders { get; set; } //bir customer birden fazla siparişi olabilir. bunun içinde ICollection kullanılır.
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public string Phone { get; set; }
     }
 }
