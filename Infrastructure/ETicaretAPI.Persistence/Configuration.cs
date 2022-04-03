@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace ETicaretAPI.Persistence
 {
-    internal static class Configuration
+    public static class Configuration //her yerden ulaşabileceğimiz configuration değerleri tutan statik class
+
     {
-        public static string ConnectionString
+        public static string ConnectionString //connection stringi burada tutuyoruz
         {
             get
             {
