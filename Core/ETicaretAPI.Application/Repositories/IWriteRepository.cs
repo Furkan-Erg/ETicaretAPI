@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ETicaretAPI.Application.Repositories
 {
-    public interface IWriteRepository
+    public interface IWriteRepository<T> : IRepository<T> where T : class //Irepository den türeyeceği için aynı şekilde biz genericimizi class olarak constraint ediyoruz
     {
     }
 }
