@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using ETicaretAPI.Domain.Entities.Common;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ETicaretAPI.Application.Repositories
 {
-    public interface IReadRepository<T> : IRepository<T> where T : class //Irepository den türeyeceği için aynı şekilde biz genericimizi class olarak constraint ediyoruz
+    public interface IReadRepository<T> : IRepository<T> where T : BaseEntity //Irepository den türeyeceği için aynı şekilde biz genericimizi class olarak constraint ediyoruz
     {
         IQueryable<T> GetAll();//list yapmıyoruz çünkü o daha local odaklı IEnumarator ile döner ama bize query için gerekli olan IQueryable<T> dönecek
 
