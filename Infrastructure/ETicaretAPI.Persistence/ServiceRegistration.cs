@@ -28,3 +28,4 @@ namespace ETicaretAPI.Persistence
             services.AddScoped<IOrderWriteRepository, OrderWriteRepository>();//interface istendiğinde gerçek orderwriterepository döndürüyoruz
         }
     }
+}
