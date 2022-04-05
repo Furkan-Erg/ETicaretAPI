@@ -17,18 +17,48 @@ namespace ETicaretAPI.Persistence.Repositories
 
         public DbSet<T> Table => _context.Set<T>();//set diyerek contexti genericleştirebiliyoruz
 
-        public IQueryable<T> GetAll()
-         => Table; //table dbset tir bu yüzden table.getall() yazılmaz
+        public IQueryable<T> GetAll(bool tracking = true)//table döndüren method
+        {//tracking istenmiyorsa tracki kesiyoruz
+            var query = Table.AsQueryable();
+            if (!tracking)
+            {
+                query = query.AsNoTracking();
+            }
+            return query;
+        }
 
-        public async Task<T> GetByIdAsync(string id)
+        public async Task<T> GetByIdAsync(string id, bool tracking = true)
+
         //=> await Table.FirstOrDefaultAsync(data => data.Id == Guid.Parse(id)); //string id yi guid e çevirip verimizi getiriyoruz
 
-        => await Table.FindAsync(Guid.Parse(id));//efcore find metodu ile id ye göre getiriyoruz bide string id yi guid e çevirip verimizi getiriyoruz
+        //=> await Table.FindAsync(Guid.Parse(id));//efcore find metodu ile id ye göre getiriyoruz bide string id yi guid e çevirip verimizi getiriyoruz
+        {
+            var query = Table.AsQueryable();
+            if (!tracking)
+            {
+                query = query.AsNoTracking();
+            }
+            return await query.FirstOrDefaultAsync(data => data.Id == Guid.Parse(id));//marker async kullanmam lazım çünkü tracking query optimizasyonda efcore find çalışmıyor
+        }
 
-        public async Task<T> GetSingleAsync(Expression<Func<T, bool>> method)
-       => await Table.FirstOrDefaultAsync(method);
+        public async Task<T> GetSingleAsync(Expression<Func<T, bool>> method, bool tracking = true)
+        {
+            var query = Table.AsQueryable();
+            if (!tracking)
+            {
+                query = query.AsNoTracking();
+            }
+            return await query.FirstOrDefaultAsync(method);
+        }
 
-        public IQueryable<T> GetWhere(Expression<Func<T, bool>> method)
-       => Table.Where(method);
+        public IQueryable<T> GetWhere(Expression<Func<T, bool>> method, bool tracking = true)
+        {
+            var query = Table.Where(method).AsQueryable();
+            if (!tracking)
+            {
+                query = query.AsNoTracking();
+            }
+            return query;
+        }
     }
 }
