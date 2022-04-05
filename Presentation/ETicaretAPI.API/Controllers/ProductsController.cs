@@ -17,8 +17,8 @@ namespace ETicaretAPI.API.Controllers
             _productReadRepository = productReadRepository;
         }
 
-        [HttpGet]
-        public async void Get()
+        [HttpGet] //denemek için bir product example ının get metodu
+        public async Task Get()
         {
             await _productWriteRepository.AddRangeAsync(new()
             {
@@ -27,6 +27,17 @@ namespace ETicaretAPI.API.Controllers
                 new() { Id = Guid.NewGuid(), Name = "Ürün3", Price = 300, CreatedDate = DateTime.UtcNow, Stock = 30 },
             });
             await _productWriteRepository.SaveAsync();
+        }
+
+        [HttpGet("{id}")] //denemek için bir product example ının getbyid metodu
+        public async Task<IActionResult> Get(string id)
+        {
+            var product = await _productReadRepository.GetByIdAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return Ok(product);
         }
     }
 }

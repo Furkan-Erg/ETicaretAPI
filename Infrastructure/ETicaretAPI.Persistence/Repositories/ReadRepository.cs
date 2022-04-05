@@ -21,7 +21,9 @@ namespace ETicaretAPI.Persistence.Repositories
          => Table; //table dbset tir bu yüzden table.getall() yazılmaz
 
         public async Task<T> GetByIdAsync(string id)
-        => await Table.FirstOrDefaultAsync(data => data.Id == Guid.Parse(id));//string id yi guid e çevirip verimizi getiriyoruz
+        //=> await Table.FirstOrDefaultAsync(data => data.Id == Guid.Parse(id)); //string id yi guid e çevirip verimizi getiriyoruz
+
+        => await Table.FindAsync(Guid.Parse(id));//efcore find metodu ile id ye göre getiriyoruz bide string id yi guid e çevirip verimizi getiriyoruz
 
         public async Task<T> GetSingleAsync(Expression<Func<T, bool>> method)
        => await Table.FirstOrDefaultAsync(method);
