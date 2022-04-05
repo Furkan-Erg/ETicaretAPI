@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ETicaretAPI.Application.Repositories;
+using ETicaretAPI.Persistence.Repositories;
 
 namespace ETicaretAPI.Persistence
 {
@@ -18,6 +20,11 @@ namespace ETicaretAPI.Persistence
             services.AddSingleton<IProductService, ProductService>(); //bu line sayesinde ne zaman productservice'in interface i call edilse bize gerçek productservisi döndürecek
 
             services.AddDbContext<ETicaretAPIDbContext>(options => options.UseNpgsql(Configuration.ConnectionString)); //bütün persistence servisleri için dbcontexti ekliyoruz
+            services.AddScoped<ICustomerReadRepository, CustomerReadRepository>();//interface istendiğinde gerçek customerreadrepository döndürüyoruz
+            services.AddScoped<ICustomerWriteRepository, CustomerWriteRepository>();//interface istendiğinde gerçek customerwriterepository döndürüyoruz
+            services.AddScoped<IProductReadRepository, ProductReadRepository>();//interface istendiğinde gerçek productreadrepository döndürüyoruz
+            services.AddScoped<IProductWriteRepository, ProductWriteRepository>();//interface istendiğinde gerçek productwriterepository döndürüyoruz
+            services.AddScoped<IOrderReadRepository, OrderReadRepository>();//interface istendiğinde gerçek orderreadrepository döndürüyoruz
+            services.AddScoped<IOrderWriteRepository, OrderWriteRepository>();//interface istendiğinde gerçek orderwriterepository döndürüyoruz
         }
     }
-}
