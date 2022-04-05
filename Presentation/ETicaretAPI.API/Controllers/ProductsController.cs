@@ -1,4 +1,4 @@
-﻿using ETicaretAPI.Application.Abstractions;
+﻿using ETicaretAPI.Application.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,22 +6,27 @@ namespace ETicaretAPI.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController : ControllerBase //presentation layerında---> product için controller yapısı 
+    public class ProductsController : ControllerBase //presentation layerında---> product için controller yapısı
     {
-        private readonly IProductService productService; //productservice yaratımı
+        private readonly IProductWriteRepository _productWriteRepository;
+        private readonly IProductReadRepository _productReadRepository;
 
-        public ProductsController(IProductService productService) // constructerda eşleme
+        public ProductsController(IProductWriteRepository productWriteRepository, IProductReadRepository productReadRepository)
         {
-            this.productService = productService;
+            _productWriteRepository = productWriteRepository;
+            _productReadRepository = productReadRepository;
         }
-        
+
         [HttpGet]
-        public IActionResult GetProducts() // bütün productları döndüren method
+        public async void Get()
         {
-            var products = productService.GetProducts();
-            return Ok(products);
+            await _productWriteRepository.AddRangeAsync(new()
+            {
+                new() { Id = Guid.NewGuid(), Name = "Ürün1", Price = 100, CreatedDate = DateTime.UtcNow, Stock = 10 },
+                new() { Id = Guid.NewGuid(), Name = "Ürün2", Price = 200, CreatedDate = DateTime.UtcNow, Stock = 20 },
+                new() { Id = Guid.NewGuid(), Name = "Ürün3", Price = 300, CreatedDate = DateTime.UtcNow, Stock = 30 },
+            });
+            await _productWriteRepository.SaveAsync();
         }
-
-
     }
 }
