@@ -4,7 +4,7 @@ namespace ETicaretAPI.Domain.Entities
 {
     public class Order : BaseEntity //class base entityden inherit ediliyo
     {
-        public int CustomerId { get; set; } //customerın id'si order-customer relationship için gerekli
+        public Guid CustomerId { get; set; } //customerın id'si order-customer relationship için gerekli
         public string Address { get; set; }
         public string Description { get; set; }
 
