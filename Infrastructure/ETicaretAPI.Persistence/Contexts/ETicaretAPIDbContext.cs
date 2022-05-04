@@ -24,17 +24,17 @@ namespace ETicaretAPI.Persistence.Contexts
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)//save changes kısmına interceptor koyuyoruz insert ve updateler için
         {
             //DbContext ten geliyor değişikliği alıyoruz ve bunlarda time kısmını intercept ederek güncelliyoruz
-            ChangeTracker.Entries<BaseEntity>()
-                .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified)
-                .ToList()
-                .ForEach(e =>
+            var datas = ChangeTracker.Entries<BaseEntity>();
+
+            foreach (var data in datas)
+            {
+                _ = data.State switch
                 {
-                    if (e.State == EntityState.Added)
-                    {
-                        e.Entity.CreatedDate = DateTime.UtcNow;
-                    }
-                    e.Entity.UpdatedDate = DateTime.UtcNow;
-                });
+                    EntityState.Added => data.Entity.CreatedDate = DateTime.UtcNow,
+                    EntityState.Modified => data.Entity.UpdatedDate = DateTime.UtcNow,
+                    _ => DateTime.UtcNow
+                };
+            }
 
             return await base.SaveChangesAsync(cancellationToken);
         }
